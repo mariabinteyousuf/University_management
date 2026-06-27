@@ -25,4 +25,9 @@ class Department extends Model
     {
         return $this->hasMany(Course::class);
     }
+
+     public function matchEvent()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

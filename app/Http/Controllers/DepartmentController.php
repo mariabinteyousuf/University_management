@@ -9,7 +9,7 @@ class DepartmentController extends Controller
 {
    public function index()
    {
-    $departments = Department::all();
+    $departments = Department::all(); //fetch all data from table and store in $departments
 
     return view('departments.index',[
         'departments' => $departments
@@ -19,7 +19,7 @@ class DepartmentController extends Controller
 
 //show create form
    public function create()
-   {
+   {  
     return view('departments.create');
    }
 
@@ -40,20 +40,20 @@ class DepartmentController extends Controller
    }
 
 
-
+//show each department
    public function show(Department $department)
 {
     return view('departments.show',
-    compact('department'));
+    ['department'=> $department]);
 }
 
 
 
   public function edit(Department $department)
 {
-    return view('departments.edit',
-        compact('department')
-    );
+    return view('departments.edit',[
+        'department'=> $department
+        ]);
 }
 
 
@@ -71,9 +71,7 @@ public function update( Department $department)
 }
 
 
-public function destroy(
-    Department $department
-)
+public function destroy(Department $department)
 {
     $department->delete();
 

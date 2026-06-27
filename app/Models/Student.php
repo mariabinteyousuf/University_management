@@ -26,4 +26,9 @@ class Student extends Model
     {
         return $this->hasMany(Registration::class);
     }
+
+    public function events()
+   {
+    return $this->belongsToMany(Event::class);
+   }
 }

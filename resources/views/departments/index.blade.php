@@ -1,35 +1,43 @@
+@extends('layouts.app')
+
+@section('content')
+
 <h1>Departments</h1>
 
-<a href="/departments/create">Create New Department</a>
+<div class="top-buttons">
+<a href="/departments/create" class="btn create-btn">Add New Department</a>
+<a href="/" class="btn back-btn">Back</a>
+</div>
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>ID</th>
+        <th>Department Name</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach($departments as $department)
+
+    <tr>
+        <td>{{ $department->id }}</td>
+        <td>{{ $department->name }}</td>
+<td>
+
+<a href="/departments/{{ $department->id }}/edit" class="btn edit-btn">Edit</a> 
+<a href="/departments/{{ $department->id }}" class="btn show-btn">Show</a> 
 
 
-<ul>
-    @foreach ($departments as $department )
-    <li>{{ $department->name }}</li>
-       
-    @endforeach
-</ul>    
 
-
-
-@foreach($departments as $department)
-
-<li>
-
-{{ $department->name }}
-
-<a href="/departments/{{ $department->id }}/edit">Edit</a> 
-<a href="/departments/{{ $department->id }}/edit">Show</a> 
-
-
-
-<form method="POST" action="/departments/{{ $department->id }}">
+<form method="POST" action="/departments/{{ $department->id }}" class="inline-form">
     @csrf
    @method('DELETE')
 
-    <button> Delete </button>
+    <button class="btn delete-btn"> Delete </button>
 </form>
-
-</li>
+</td>
+    </tr>
 
 @endforeach
+</table>
+@endsection

@@ -2,23 +2,28 @@
 @section('content')
 
 <h2>{{ $event->title }}</h2>
-
-<p><strong>Department:</strong> {{ $event->department->name }}</p>
+<h2>{{ $event->departmentOne->name }} VS {{ $event->departmentTwo->name }}
+</h2>
 <p><strong>Event Time:</strong>{{ $event->time }}</p>
 
-<h3>Players</h3>
-
+<h3>{{ $event->departmentOne->name }}</h3>
 <ul>
+    @foreach($event->students->where('pivot.department_id',$event->department1_id) as $student)
 
-    @foreach($event->students as $student)
+    <li>{{ $student->name }} <br></li>
 
-        <li>
-            {{ $student->name }}
-        </li>
-
-    @endforeach
-
+@endforeach
 </ul>
+
+<h3>{{ $event->departmentTwo->name }}</h3>
+<ul>
+    @foreach($event->students->where('pivot.department_id',$event->department2_id) as $student)
+
+    <li>{{ $student->name }} <br></li>
+
+@endforeach
+</ul>
+
 
 <a href="/events" class="btn back-btn">Back</a>
 

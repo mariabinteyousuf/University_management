@@ -9,16 +9,16 @@
 
     <div class="form-group">
 
-        <label>Department</label>
+        <label>Team 1 Department</label>
 
-        <select name="department_id" class="form-control" onchange="this.form.submit()">
+        <select name="department1_id" class="form-control" onchange="this.form.submit()">
 
             <option value="">Select Department</option>
 
             @foreach($departments as $department)
 
                 <option value="{{ $department->id }}"
-                    {{ request('department_id') == $department->id ? 'selected' : '' }}>
+                    {{ request('department1_id') == $department->id ? 'selected' : '' }}>
 
                     {{ $department->name }}
 
@@ -30,13 +30,47 @@
 
     </div>
 
+ <div class="form-group">
+
+        <label>Team 2 Department</label>
+
+        <select
+            name="department2_id"
+            class="form-control"
+            onchange="this.form.submit()">
+
+            <option value="">
+                Select Department
+            </option>
+
+            @foreach($departments as $department)
+
+                <option
+                    value="{{ $department->id }}"
+                    {{ request('department2_id') == $department->id ? 'selected' : '' }}>
+                 
+                    {{-- @if(request('department1_id') == $department->id)
+                        disabled
+                    @endif> --}}
+
+                    {{ $department->name }}
+
+                </option>
+
+            @endforeach
+
+        </select>
+
+    </div>
+
+
 </form>
 
 <br>
 
 <!--2nd Form-->
 
-@if(request('department_id'))
+@if(request('department1_id') && request('department2_id'))
 
 <form method="POST" action="/events">
 
@@ -44,8 +78,13 @@
 
     <input
         type="hidden"
-        name="department_id"
-        value="{{ request('department_id') }}">
+        name="department1_id"
+        value="{{ request('department1_id') }}">
+
+    <input
+        type="hidden"
+        name="department2_id"
+        value="{{ request('department2_id') }}">   
 
     <div class="form-group">
 
@@ -70,15 +109,15 @@
 
     <div class="form-group">
 
-        <label>Select Players</label>
+        <label>Select Team 1 Players</label>
 
         <br><br>
 
-        @foreach($students as $student)
+        @foreach($teamOne as $student)
 
             <input
                 type="checkbox"
-                name="students[]"
+                name="teamOne_students[]"
                 value="{{ $student->id }}">
 
             {{ $student->name }}
@@ -87,11 +126,38 @@
 
         @endforeach
 
-        @error('students')
+        @error('teamOne_students')
             <p class="error">
-                Please select at least one player.
+                Please select team 1 players.
             </p>
         @enderror
+
+<br></br>
+
+         <label>Select Team 2 Players</label>
+
+        <br><br>
+
+        @foreach($teamTwo as $student)
+
+            <input
+                type="checkbox"
+                name="teamTwo_students[]"
+                value="{{ $student->id }}">
+
+            {{ $student->name }}
+
+            <br>
+
+        @endforeach
+
+        @error('teamTwo_students')
+            <p class="error">
+                Please select team 2 players.
+            </p>
+        @enderror
+
+
 
     </div>
 

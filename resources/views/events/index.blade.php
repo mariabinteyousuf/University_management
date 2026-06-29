@@ -26,9 +26,9 @@
         <td>{{ $event->id }}</td>
         <td>{{ $event->title }}</td>
         <td>
-            {{ $event->department1->name }}
+            {{ $event->departmentOne->name }}
              VS
-            {{ $event->department2->name }}
+            {{ $event->departmentTwo->name }}
 
         </td>
         <td>{{ $event->time }}</td>

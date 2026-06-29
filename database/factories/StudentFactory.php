@@ -20,7 +20,7 @@ class StudentFactory extends Factory
         return [
         'name' => fake()->name(),
         'email' => fake()->unique()->safeEmail(),
-        'department_id' => \App\Models\Department::inRandomOrder()->first()->id,
+        'department_id' => \App\Models\Department::inRandomOrder()->first()->id
         ];
     }
 }

@@ -49,6 +49,7 @@ class TeacherController extends Controller
 
     public function show(Teacher $teacher)
     {
+        $teacher ->load('department');
         return view('teachers.show',[
             'teacher'=> $teacher
         ]);

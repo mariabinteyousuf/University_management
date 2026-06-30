@@ -11,7 +11,7 @@ class EventController extends Controller
 {
     public function index()
 {
-    $events = Event::all();
+    $events = Event::with('departmentOne','departmentTwo')->get();
 
     return view('events.index', [
         'events' => $events
@@ -85,6 +85,8 @@ class EventController extends Controller
 
     public function show(Event $event)
 {
+    $event->load('departmentOne','departmentTwo','students');
+
     return view('events.show', [
         'event' => $event
     ]);
@@ -92,13 +94,20 @@ class EventController extends Controller
 
     public function edit(Event $event)
     {
+        $event->load('students');
         $departments =Department::all();
-        $students =Student::all();
+
+        $department1 = request('department1_id', $event->department1_id);
+        $department2 = request('department2_id', $event->department2_id);
+        
+        $teamOne =Student::query()->where('department_id',$department1)->get();
+        $teamTwo =Student::query()->where('department_id',$department2)->get();
 
         return view('events.edit',[
             'event'=>$event,
-            'students'=> $students,
-            'departments'=>$departments
+            'departments'=>$departments,
+            'teamOne' => $teamOne,
+            'teamTwo' => $teamTwo,
         ]);
     }
 
@@ -118,12 +127,24 @@ class EventController extends Controller
             'time'=>request('time')
         ]);
 
-        //   if (request('students')) {
-        //     $event->students()->sync(
-        //         request('students')
-        //     );
-        // }
+        $event->students()->detach();
 
+         if (request('teamOne_students')) {
+              foreach (request('teamOne_students') as $student) {
+              $event->students()->attach($student, [
+              'department_id' => $event->department1_id,
+        ]);
+    }
+}
+
+         if (request('teamTwo_students')) {
+            foreach (request('teamTwo_students') as $student) {
+             $event->students()->attach($student, [
+             'department_id' => $event->department2_id,
+        ]);
+    }
+}
+       
         return redirect('/events');        
     }
 

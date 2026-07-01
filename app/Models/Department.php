@@ -26,8 +26,13 @@ class Department extends Model
         return $this->hasMany(Course::class);
     }
 
-    public function matchEvent()
+    public function teamOneEvents()
     {
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Event::class, 'department1_id');
+    }
+
+    public function teamTwoEvents()
+    {
+        return $this->hasMany(Event::class, 'department2_id');
     }
 }

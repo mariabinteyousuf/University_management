@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,9 +19,9 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-        'name' => fake()->name(),
-        'email' => fake()->unique()->safeEmail(),
-        'department_id' => \App\Models\Department::inRandomOrder()->first()->id,
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
+            'department_id' => Department::inRandomOrder()->first()->id,
         ];
     }
 }

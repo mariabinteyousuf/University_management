@@ -27,6 +27,10 @@
                     <div class="detail-label">Email</div>
                     <div class="detail-value">{{ $teacher->email }}</div>
                 </div>
+                <div class="detail-item">
+                    <div class="detail-label">Department</div>
+                    <div class="detail-value">{{ $teacher->department?->name ?? 'Unassigned' }}</div>
+                </div>
             </div>
         </div>
     </div>

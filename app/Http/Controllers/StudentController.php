@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Student;
-use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -12,77 +11,77 @@ class StudentController extends Controller
     {
         $students = Student::all();
 
-        return view('students.index',[
-            'students' => $students 
-     ]);
-    }
-
-     
-    public function create()
-    {
-        $departments =Department::all();
-
-        return view('students.create',[
-            'departments' => $departments
+        return view('students.index', [
+            'students' => $students,
         ]);
     }
 
+    public function create()
+    {
+        $departments = Department::all();
+
+        return view('students.create', [
+            'departments' => $departments,
+        ]);
+    }
 
     public function store()
     {
-        request()->validate([
-            'name'=>['required'],
-            'email'=>['required'],
-            'department_id'=>['required']
+        $attributes = request()->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+            'department_id' => ['required'],
+            'photo' => ['nullable', 'image', 'max:2048'],
         ]);
 
-        Student::create([
-             'name'=> request('name'),
-             'email'=> request('email'),
-             'department_id'=>request('department_id')
-        ]);
+        if (request()->hasFile('photo')) {
+            $attributes['photo'] = request()->file('photo')->store('students', 'public');
+        }
 
-         return redirect('/students');
+        Student::create($attributes);
+
+        return redirect('/students');
 
     }
-
 
     public function show(Student $student)
     {
-        return view('students.show',[
-            'student'=> $student
+        return view('students.show', [
+            'student' => $student,
         ]);
     }
 
-
     public function edit(Student $student)
     {
-        $departments =Department::all();
-        return view('students.edit',[
-            'student'=> $student,
-            'departments'=>$departments
+        $departments = Department::all();
+
+        return view('students.edit', [
+            'student' => $student,
+            'departments' => $departments,
         ]);
     }
 
     public function update(Student $student)
     {
         request()->validate([
-         'name'=>['required'],
-         'email'=>['required'],
-         'department_id'=>['required']
+            'name' => ['required'],
+            'email' => ['required'],
+            'department_id' => ['required'],
         ]);
-        
+
         $student->update([
-            'name'=>request('name'),
-            'email'=>request('email'),
-            'department_id'=>request('department_id')
+            'name' => request('name'),
+            'email' => request('email'),
+            'department_id' => request('department_id'),
         ]);
-        return redirect('/students');        
+
+        return redirect('/students');
     }
 
     public function destroy(Student $student)
     {
         $student->delete();
+
         return redirect('/students');
     }
 }

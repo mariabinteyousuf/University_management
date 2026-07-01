@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     <div class="page-header">
         <div>
@@ -28,7 +29,7 @@
                         <tr>
                             <td>{{ $event->id }}</td>
                             <td>{{ $event->title }}</td>
-                            <td>{{ $event->departmentOne->name }} vs {{ $event->departmentTwo->name }}</td>
+                            <td>{{ $event->departmentOne?->name ?? 'Unassigned' }} vs {{ $event->departmentTwo?->name ?? 'Unassigned' }}</td>
                             <td>{{ $event->time }}</td>
                             <td>
                                 <div class="action-row">

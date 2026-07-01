@@ -1,54 +1,51 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Registrations</h1>
+            <p class="page-subtitle">Student course registration records by semester.</p>
+        </div>
+        <div class="page-actions">
+            <a href="/" class="btn btn-secondary">Back</a>
+            <a href="/registrations/create" class="btn btn-primary">Add Registration</a>
+        </div>
+    </div>
 
-<h1>Registrations</h1>
-
-<div class="top-buttons">
-<a href="/registrations/create" class="btn create-btn">Add New Registration</a>
-<a href="/" class="btn back-btn">Back</a>
-</div>
-<br><br>
-
-<table border="1" cellpadding="10">
-
-    <tr>
-        <th>ID</th>
-        <th>Student ID</th>
-        <th>Course ID</th>
-        <th>Semester</th>
-        <th>Actions</th>
-    </tr>
-
-    @foreach($registrations as $registration)
-
-    <tr>
-        <td>{{ $registration->id }}</td>
-        <td>{{ $registration->student_id }}</td>
-        <td>{{ $registration->course_id }}</td>
-        <td>{{ $registration->semester }}</td>
-
-        <td>
-
-            <a href="/registrations/{{ $registration->id }}/edit" class="btn edit-btn">Edit</a>
-            <a href="/registrations/{{ $registration->id }}" class="btn show-btn">Show</a>
-
-            <form method="POST"
-                  action="/registrations/{{ $registration->id }}"
-                  style="display:inline;">
-
-                @csrf
-                @method('DELETE')
-
-                <button type="submit" class="btn delete-btn"> Delete</button>
-
-            </form>
-
-        </td>
-
-    </tr>
-
-    @endforeach
-
-</table>
+    <div class="table-shell">
+        <div class="table-wrap">
+            <table class="record-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student ID</th>
+                        <th>Course ID</th>
+                        <th>Semester</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($registrations as $registration)
+                        <tr>
+                            <td>{{ $registration->id }}</td>
+                            <td>{{ $registration->student_id }}</td>
+                            <td>{{ $registration->course_id }}</td>
+                            <td>{{ $registration->semester }}</td>
+                            <td>
+                                <div class="action-row">
+                                    <a href="/registrations/{{ $registration->id }}" class="action-link">Show</a>
+                                    <a href="/registrations/{{ $registration->id }}/edit" class="action-link">Edit</a>
+                                    <form method="POST" action="/registrations/{{ $registration->id }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="action-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection

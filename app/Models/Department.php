@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    Use HasFactory;
+    use HasFactory;
 
     protected $fillable = ['name'];
 
@@ -26,7 +26,7 @@ class Department extends Model
         return $this->hasMany(Course::class);
     }
 
-     public function matchEvent()
+    public function matchEvent()
     {
         return $this->hasMany(Event::class);
     }

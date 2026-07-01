@@ -1,30 +1,50 @@
 @extends('layouts.app')
 @section('content')
 
-<h2>{{ $event->title }}</h2>
-<h2>{{ $event->departmentOne->name }} VS {{ $event->departmentTwo->name }}
-</h2>
-<p><strong>Event Time:</strong>{{ $event->time }}</p>
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">{{ $event->title }}</h1>
+            <p class="page-subtitle">{{ $event->departmentOne->name }} vs {{ $event->departmentTwo->name }}</p>
+        </div>
+        <div class="page-actions">
+            <a href="/events" class="btn btn-secondary">Back</a>
+            <a href="/events/{{ $event->id }}/edit" class="btn btn-primary">Edit Event</a>
+        </div>
+    </div>
 
-<h3>{{ $event->departmentOne->name }}</h3>
-<ul>
-    @foreach($event->students->where('pivot.department_id',$event->department1_id) as $student)
+    <div class="content-panel">
+        <div class="panel-body">
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <div class="detail-label">Event Time</div>
+                    <div class="detail-value">{{ $event->time }}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Matchup</div>
+                    <div class="detail-value">{{ $event->departmentOne->name }} vs {{ $event->departmentTwo->name }}</div>
+                </div>
+            </div>
 
-    <li>{{ $student->name }} <br></li>
+            <div class="form-grid-two mt-8">
+                <section>
+                    <h2 class="text-base font-bold text-zinc-950">{{ $event->departmentOne->name }}</h2>
+                    <ul class="team-list">
+                        @foreach($event->students->where('pivot.department_id', $event->department1_id) as $student)
+                            <li>{{ $student->name }}</li>
+                        @endforeach
+                    </ul>
+                </section>
 
-@endforeach
-</ul>
-
-<h3>{{ $event->departmentTwo->name }}</h3>
-<ul>
-    @foreach($event->students->where('pivot.department_id',$event->department2_id) as $student)
-
-    <li>{{ $student->name }} <br></li>
-
-@endforeach
-</ul>
-
-
-<a href="/events" class="btn back-btn">Back</a>
+                <section>
+                    <h2 class="text-base font-bold text-zinc-950">{{ $event->departmentTwo->name }}</h2>
+                    <ul class="team-list">
+                        @foreach($event->students->where('pivot.department_id', $event->department2_id) as $student)
+                            <li>{{ $student->name }}</li>
+                        @endforeach
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
 
 @endsection

@@ -1,72 +1,64 @@
 @extends('layouts.app')
 
 @section('content')
-
-
-<div class="form-container">
-<form method="POST" action="/courses">
-    @csrf
-
-    <div class="form-group">
-    <input
-    type="text"
-    name="course_name"
-    class="form-control"
-    placeholder="Course Name"><br></br>
-     @error('course_name')
-        <p class="error">Please enter an email address.</p>
-    @enderror
-
-
-  <select name="department_id" class="form-control">
-
-        <option value="">
-            Select Department
-        </option>
-
-        @foreach($departments as $department)
-
-            <option value="{{ $department->id }}">
-                {{ $department->name }}
-            </option>
-
-        @endforeach
-
-    </select><br></br>
-
-     @error('department_id')
-        <p class="error">Please select a department!</p>
-    @enderror
-    
-
-    <select name="teacher_id" class="form-control">
-
-        <option value="">
-            Select Teacher
-        </option>
-
-        @foreach($teachers as $teacher)
-
-            <option value="{{ $teacher->id }}">
-                {{ $teacher->name }}
-            </option>
-
-        @endforeach
-
-    </select>
-
-     @error('teacher_id')
-        <p class="error">Please select a teacher!</p>
-    @enderror
-
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Create Course</h1>
+            <p class="page-subtitle">Add a course and connect it to a department and teacher.</p>
+        </div>
+        <div class="page-actions">
+            <a href="/courses" class="btn btn-secondary">Back</a>
+        </div>
     </div>
 
+    <div class="content-panel">
+        <div class="panel-body">
+            <form method="POST" action="/courses">
+                @csrf
 
-    <div class="form-buttons">
-       <button type="submit" class="submit-btn">Create</button>
-       <a href="/courses" class="cancel-btn">Cancel</a>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="form-label">Course Name</label>
+                        <input type="text" name="course_name" class="form-input field-input" placeholder="Enter course name">
+                        @error('course_name')
+                            <p class="form-error">Please enter a valid course name.</p>
+                        @enderror
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Department</label>
+                        <select name="department_id" class="form-select field-input">
+                            <option value="">Select Department</option>
+                            @foreach($departments as $item)
+                                <option value="{{ $item->id }}">
+                                    {{ $item->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('department_id')
+                            <p class="form-error">Please select a department.</p>
+                        @enderror
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Teacher</label>
+                        <select name="teacher_id" class="form-select field-input">
+                            <option value="">Select Teacher</option>
+                            @foreach($teachers as $item)
+                                <option value="{{ $item->id }}">
+                                    {{ $item->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('teacher_id')
+                            <p class="form-error">Please select a teacher.</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <a href="/courses" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Create Course</button>
+                </div>
+            </form>
+        </div>
     </div>
-</form>
-</div>
 @endsection
-    

@@ -1,167 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="h-full">
 <head>
-    <title>University Management System</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-        }
-
-        .navbar {
-            background: #2c3e50;
-            padding: 15px;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin-right: 20px;
-        }
-
-        .navbar a:hover {
-            color: yellow;
-        }
-
-        .content {
-            padding: 20px;
-        }
-
-        .top-buttons {
-           text-align: left;
-            margin-bottom: 20px;
-        }
-      
-        .btn {
-            display: inline-block;
-            padding: 10px 15px;
-            text-decoration: none;
-            color: white;
-            border-radius: 5px;
-            margin-left: 15px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .create-btn {
-            background-color: green;
-        }
-        
-        .back-btn {
-            background-color: blue;
-        }
-        
-        .edit-btn {
-            background-color: orange;
-        }
- 
-        .show-btn {
-             background-color: purple;
-        }
-
-        .delete-btn {
-            background-color: red;
-        }
-
-        .inline-form {
-            display: inline;
-        }
-        
-        .btn:hover {
-            opacity: 0.8;
-         }
-
-        
-
-
-
-.form-container {
-    width: 400px;
-    margin: 40px auto;
-    padding: 30px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #f9f9f9;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.form-container h2 {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-.form-control {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 15px;
-    box-sizing: border-box;
-}
-
-.form-buttons {
-    margin-top: 20px;
-}
-
-.submit-btn {
-    background: green;
-    color: white;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.cancel-btn {
-    background: #555;
-    color: white;
-    padding: 10px 18px;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-left: 10px;
-}
-
-.submit-btn:hover,
-.cancel-btn:hover {
-    opacity: 0.9;
-}
-
-.error {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-    </style>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>University Management</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+<body class="h-full">
+    @php
+        $navigation = [
+            ['label' => 'Dashboard', 'href' => '/', 'active' => request()->path() === '/'],
+            ['label' => 'Departments', 'href' => '/departments', 'active' => request()->is('departments*')],
+            ['label' => 'Teachers', 'href' => '/teachers', 'active' => request()->is('teachers*')],
+            ['label' => 'Students', 'href' => '/students', 'active' => request()->is('students*')],
+            ['label' => 'Courses', 'href' => '/courses', 'active' => request()->is('courses*')],
+            ['label' => 'Registrations', 'href' => '/registrations', 'active' => request()->is('registrations*')],
+            ['label' => 'Events', 'href' => '/events', 'active' => request()->is('events*')],
+        ];
+    @endphp
 
-<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="flex items-center gap-3 border-b border-zinc-700 px-6 py-5">
+                <div class="brand-mark">UM</div>
+                <div>
+                    <div class="text-base font-bold text-white">University Manager</div>
+                    <div class="text-xs font-semibold uppercase tracking-wide text-zinc-400">Academic Operations</div>
+                </div>
+            </div>
 
-    <div class="navbar">
-        <a href="/">Home</a>
-        <a href="/departments">Departments</a>
-        <a href="/teachers">Teachers</a>
-        <a href="/students">Students</a>
-        <a href="/courses">Courses</a>
-        <a href="/registrations">Registrations</a>
-        <a href="/events">Events</a>
+            <nav class="flex-1 space-y-1 px-4 py-5">
+                @foreach($navigation as $item)
+                    <a href="{{ $item['href'] }}" class="sidebar-link {{ $item['active'] ? 'sidebar-link-active' : '' }}">
+                        {{ $item['label'] }}
+                    </a>
+                @endforeach
+            </nav>
+        </aside>
+
+        <div class="main-shell">
+            <header class="topbar">
+                <div class="topbar-inner">
+                    <div>
+                        <div class="text-sm font-bold text-zinc-950">University Management</div>
+                        <div class="text-xs font-semibold uppercase tracking-wide text-zinc-500">Admin Workspace</div>
+                    </div>
+                    <div class="border border-zinc-300 bg-white px-3 py-2 text-sm font-semibold text-zinc-800">Admin User</div>
+                </div>
+
+                <nav class="mobile-nav">
+                    @foreach($navigation as $item)
+                        <a href="{{ $item['href'] }}">{{ $item['label'] }}</a>
+                    @endforeach
+                </nav>
+            </header>
+
+            <main class="page-container">
+                @yield('content')
+            </main>
+        </div>
     </div>
-
-    <div class="content">
-        @yield('content')
-    </div>
-
 </body>
 </html>

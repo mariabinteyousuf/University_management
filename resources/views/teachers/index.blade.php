@@ -1,48 +1,49 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Teachers</h1>
+            <p class="page-subtitle">Faculty records and departmental assignments.</p>
+        </div>
+        <div class="page-actions">
+            <a href="/" class="btn btn-secondary">Back</a>
+            <a href="/teachers/create" class="btn btn-primary">Add Teacher</a>
+        </div>
+    </div>
 
-<h1>Teachers</h1>
-
-<div class="top-buttons">
-<a href="/teachers/create" class="btn create-btn" >Add New Teacher</a>
-<a href="/" class="btn back-btn">Back</a>
-</div>
-
-<table border="1" cellpadding="10">
-
-    <tr>
-        <th>ID</th>
-        <th>Teacher's Name</th>
-        <th>Email Address</th>
-        <th>Actions</th>
-    </tr>
-
-    @foreach($teachers as $teacher)
-
-    <tr>
-        <td>{{ $teacher->id }}</td>
-        <td>{{ $teacher->name }}</td>
-        <td>{{ $teacher->email }}</td>
-
-        <td>
-
-<a href="/teachers/{{ $teacher->id }}/edit" class="btn edit-btn">Edit</a> 
-<a href="/teachers/{{ $teacher->id }}" class="btn show-btn">Show</a> 
-
-
-
-<form method="POST" action="/teachers/{{ $teacher->id }}" class="inline-form">
-    @csrf
-   @method('DELETE')
-
-    <button class="btn delete-btn"> Delete </button>
-</form>
-
-        </td>
-    </tr>
-
-@endforeach
-</table>
-
+    <div class="table-shell">
+        <div class="table-wrap">
+            <table class="record-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Teacher Name</th>
+                        <th>Email Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($teachers as $teacher)
+                        <tr>
+                            <td>{{ $teacher->id }}</td>
+                            <td>{{ $teacher->name }}</td>
+                            <td>{{ $teacher->email }}</td>
+                            <td>
+                                <div class="action-row">
+                                    <a href="/teachers/{{ $teacher->id }}" class="action-link">Show</a>
+                                    <a href="/teachers/{{ $teacher->id }}/edit" class="action-link">Edit</a>
+                                    <form method="POST" action="/teachers/{{ $teacher->id }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="action-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection

@@ -1,69 +1,57 @@
 @extends('layouts.app')
+
 @section('content')
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Create Registration</h1>
+            <p class="page-subtitle">Register a student for a course.</p>
+        </div>
+        <div class="page-actions">
+            <a href="/registrations" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
 
+    <div class="content-panel">
+        <div class="panel-body">
+            <form method="POST" action="/registrations">
+                @csrf
 
-<div class="form-container">
-<form method="POST" action="/registrations">
-    @csrf
-    
-  <div class="form-group">
-  <select name="student_id" class="form-control" >
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="form-label">Student</label>
+                        <select name="student_id" class="form-select field-input">
+                            <option value="">Select Student</option>
+                            @foreach($students as $item)
+                                <option value="{{ $item->id }}">
+                                    {{ $item->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('student_id')
+                            <p class="form-error">Please select a student.</p>
+                        @enderror
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Course</label>
+                        <select name="course_id" class="form-select field-input">
+                            <option value="">Select Course</option>
+                            @foreach($courses as $item)
+                                <option value="{{ $item->id }}">
+                                    {{ $item->course_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('course_id')
+                            <p class="form-error">Please select a course.</p>
+                        @enderror
+                    </div>
+                </div>
 
-        <option value="">
-            Select Student
-        </option>
-
-        @foreach($students as $student)
-
-            <option value="{{ $student->id }}">
-                {{ $student->name }}
-            </option>
-
-        @endforeach
-
-    </select>
-    <br><br>
-
-     @error('student_id')
-        <p class="error">Please select a student!</p>
-    @enderror
-
-
-      <select name="course_id" class="form-control">
-
-        <option value="">
-            Select Course
-        </option>
-
-        @foreach($courses as $course)
-
-            <option value="{{ $course->id }}">
-                {{ $course->course_name }}
-            </option>
-
-        @endforeach
-
-    </select><br><br>
-   @error('course_id')
-        <p class="error">Please select a course!</p>
-    @enderror
-
-
-    <input
-    type="text"
-    name="semester"
-    class="form-control"
-    placeholder="Semester"><br></br>
-     @error('semester')
-        <p class="error">Please enter a semester!</p>
-    @enderror
-
-  </div>  
-
-  <div class="form-buttons">
-     <button type="submit" class="submit-btn">Create</button>
-     <a href="/registrations" class="cancel-btn">Cancel</a>
-  </div> 
-</form>
-</div>
+                <div class="form-footer">
+                    <a href="/registrations" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Create Registration</button>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection

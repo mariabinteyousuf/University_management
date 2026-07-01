@@ -1,55 +1,57 @@
 @extends('layouts.app')
+
 @section('content')
-
-<div class="form-container">
-<form method="POST" action="/students">
-    @csrf
-
-    <div class="form-group">
-    <input
-    type="text"
-    name="name"
-    class="form-control"
-    placeholder="Student Name"><br></br>
-     @error('name')
-        <p class="error">Please enter a name!</p>
-    @enderror
-
-    <input
-    type="email"
-    name="email"
-    class="form-control"
-    placeholder="Email"><br></br>
-     @error('email')
-        <p class="error">Please enter an email address!</p>
-    @enderror
-
-   <select name="department_id" class="form-control">
-
-        <option value="">Select Department</option>
-
-        @foreach($departments as $department)
-
-            <option value="{{ $department->id }}">
-                {{ $department->name }}
-            </option>
-
-        @endforeach
-
-    </select>
-     @error('department_id')
-        <p class="error">Please select a department!</p>
-    @enderror
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Create Student</h1>
+            <p class="page-subtitle">Add a student profile and department assignment.</p>
+        </div>
+        <div class="page-actions">
+            <a href="/students" class="btn btn-secondary">Back</a>
+        </div>
     </div>
 
+    <div class="content-panel">
+        <div class="panel-body">
+            <form method="POST" action="/students">
+                @csrf
 
-    <div class="form-buttons">
-      <button type="submit" class="submit-btn">Create</button>
-      <a href="/students" class="cancel-btn">Cancel</a>
-    </div>  
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="form-label">Student Name</label>
+                        <input type="text" name="name" class="form-input field-input" placeholder="Enter student name">
+                        @error('name')
+                            <p class="form-error">Please enter a valid student name.</p>
+                        @enderror
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" name="email" class="form-input field-input" placeholder="Enter email address">
+                        @error('email')
+                            <p class="form-error">Please enter a valid email address.</p>
+                        @enderror
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Department</label>
+                        <select name="department_id" class="form-select field-input">
+                            <option value="">Select Department</option>
+                            @foreach($departments as $item)
+                                <option value="{{ $item->id }}">
+                                    {{ $item->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('department_id')
+                            <p class="form-error">Please select a department.</p>
+                        @enderror
+                    </div>
+                </div>
 
-</form>
-</div>
+                <div class="form-footer">
+                    <a href="/students" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Create Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
-
-    

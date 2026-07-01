@@ -1,59 +1,55 @@
 @extends('layouts.app')
 @section('content')
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Edit Registration</h1>
+            <p class="page-subtitle">Update course registration details.</p>
+        </div>
+        <div class="page-actions">
+            <a href="/registrations" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
 
-<div class="form-container">
-<form method="POST" action="/registration/{{ $registration->id }}">
-    @csrf
-    @method("PATCH")
+    <div class="content-panel">
+        <div class="panel-body">
+            <form method="POST" action="/registrations/{{ $registration->id }}">
+                @csrf
+                @method('PATCH')
 
-   <div class="form-group">
-   <select name="student_id" class="form-control">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="form-label">Student</label>
+                        <select name="student_id" class="form-select field-input">
+                            @foreach($students as $student)
+                                <option value="{{ $student->id }}" {{ $registration->student_id == $student->id ? 'selected' : '' }}>
+                                    {{ $student->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-        @foreach($students as $student)
+                    <div class="form-field">
+                        <label class="form-label">Course</label>
+                        <select name="course_id" class="form-select field-input">
+                            @foreach($courses as $course)
+                                <option value="{{ $course->id }}" {{ $registration->course_id == $course->id ? 'selected' : '' }}>
+                                    {{ $course->course_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-            <option
-                value="{{ $student->id }}"
-                {{ $registration->student_id == $student->id ? 'selected' : '' }}>
+                    <div class="form-field">
+                        <label class="form-label">Semester</label>
+                        <input type="text" name="semester" class="form-input field-input" value="{{ $registration->semester }}">
+                    </div>
+                </div>
 
-                {{ $student->name }}
-
-            </option>
-
-        @endforeach
-
-    </select>
-
-    <br><br>
-
-     <select name="course_id" class="form-control">
-
-        @foreach($courses as $course)
-
-            <option
-                value="{{ $course->id }}"
-                {{ $registration->course_id == $course->id ? 'selected' : '' }}>
-
-                {{ $course->course_name }}
-
-            </option>
-
-        @endforeach
-
-    </select><br><br>
-   </div>
-
-
-    <input
-    type="text"
-    name="semester"
-    class="form-control"
-    value="{{ $registration->semester }}"><br></br>
-
-    <div class="form-buttons">
-       <button type="submit" class="submit-btn">Edit</button>
-       <a href="/registrations" class="cancel-btn">Cancel</a>
-    </div>   
-    
-</form>
-</div>
+                <div class="form-footer">
+                    <a href="/registrations" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Update Registration</button>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection

@@ -18,6 +18,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Photo</th>
                         <th>Student Name</th>
                         <th>Email Address</th>
                         <th>Actions</th>
@@ -27,6 +28,24 @@
                     @foreach($students as $student)
                         <tr>
                             <td>{{ $student->id }}</td>
+                            
+                            <td>
+
+                                @if($student->photo)
+
+                                     <img
+                                       src="{{ asset('storage/' . $student->photo) }}"
+                                       width="70"
+                                       height="70"
+                                       style="border-radius:50%; object-fit:cover;">
+
+                                  @else
+
+                                   No Photo
+
+                                @endif
+
+                            </td>
                             <td>{{ $student->name }}</td>
                             <td>{{ $student->email }}</td>
                             <td>

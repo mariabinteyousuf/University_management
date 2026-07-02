@@ -3,7 +3,6 @@
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\MatchEventController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;

@@ -1,6 +1,6 @@
 @extends('layouts.app')
-
 @section('content')
+
     <div class="page-header">
         <div>
             <h1 class="page-title">Events</h1>

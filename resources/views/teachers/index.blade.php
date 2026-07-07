@@ -33,7 +33,8 @@
                                 <div class="action-row">
                                     <a href="/teachers/{{ $teacher->id }}" class="action-link">Show</a>
                                     <a href="/teachers/{{ $teacher->id }}/edit" class="action-link">Edit</a>
-                                    <form method="POST" action="/teachers/{{ $teacher->id }}">
+                                    <form method="POST" action="/teachers/{{ $teacher->id }}"
+                                        onsubmit="return confirm('Are you sure you want to delete this teacher?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="action-danger">Delete</button>

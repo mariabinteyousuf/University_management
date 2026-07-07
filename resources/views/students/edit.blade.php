@@ -12,7 +12,7 @@
 
     <div class="content-panel">
         <div class="panel-body">
-            <form method="POST" action="/students/{{ $student->id }}" enctype="multipart/form-data"></form>>
+            <form method="POST" action="/students/{{ $student->id }}" enctype="multipart/form-data"></form>
                 @csrf
                 @method('PATCH')
 

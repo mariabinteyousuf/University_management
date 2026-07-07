@@ -1,17 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Storage;
+
 
 use App\Models\Department;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Pest\Plugins\Tia\Storage;
 
 class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::all();
+        $search = request("search");
+        $students = Student::query()->when($search,function($query) use ($search){
+            $query->where("name","like","%".$search."%");
+        })->get();
 
         return view('students.index',[
             'students' => $students 
@@ -53,7 +57,7 @@ class StudentController extends Controller
              'photo' => $photo
         ]);
 
-         return redirect('/students');
+         return redirect('/students')->with('success','Student Created Successfully!');
 
     }
 

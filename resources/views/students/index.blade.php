@@ -12,6 +12,35 @@
         </div>
     </div>
 
+    <form action="/students" method="GET" class="mb-6 flex items-center gap-3">
+
+       <input
+        type="text"
+        name="search"
+        value="{{ request('search') }}"
+        placeholder="Search student by name..."
+        class="form-input field-input w-150">
+
+       <button
+        type="submit"
+        class="btn btn-primary">
+        Search
+       </button>
+
+       <a
+        href="/students"
+        class="btn btn-secondary">
+        Reset
+       </a>
+
+    </form>
+
+    @if(session('success'))
+    <div class="mb-4 rounded-lg bg-green-100 border border-green-400 text-green-700 px-4 py-3">
+        {{ session('success') }}
+    </div>
+@endif
+
     <div class="table-shell">
         <div class="table-wrap">
             <table class="record-table">
@@ -52,7 +81,8 @@
                                 <div class="action-row">
                                     <a href="/students/{{ $student->id }}" class="action-link">Show</a>
                                     <a href="/students/{{ $student->id }}/edit" class="action-link">Edit</a>
-                                    <form method="POST" action="/students/{{ $student->id }}">
+                                    <form method="POST" action="/students/{{ $student->id }}"
+                                        onsubmit="return confirm('Are you sure you want to delete this student?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="action-danger">Delete</button>

@@ -35,7 +35,8 @@
                                 <div class="action-row">
                                     <a href="/registrations/{{ $registration->id }}" class="action-link">Show</a>
                                     <a href="/registrations/{{ $registration->id }}/edit" class="action-link">Edit</a>
-                                    <form method="POST" action="/registrations/{{ $registration->id }}">
+                                    <form method="POST" action="/registrations/{{ $registration->id }}"
+                                        onsubmit="return confirm('Are you sure you want to delete this registration?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="action-danger">Delete</button>

@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Pest\Plugins\Tia\Storage;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -107,12 +107,15 @@ class StudentController extends Controller
             'department_id'=>request('department_id'),
             'photo' => $photo
         ]);
-        return redirect('/students');        
+        return redirect('/students')->with('success','Student Updated Successfully!');        
     }
 
     public function destroy(Student $student)
     {
+        if ($student->photo && Storage::disk('public')->exists($student->photo)) {
+        Storage::disk('public')->delete($student->photo);
+    }
         $student->delete();
-        return redirect('/students');
+        return redirect('/students')->with('success','Student Deleted Successfully!');
     }
 }

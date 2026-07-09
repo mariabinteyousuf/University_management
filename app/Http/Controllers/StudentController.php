@@ -12,13 +12,24 @@ class StudentController extends Controller
 {
     public function index()
     {
+        $departments=Department::all();
+        $department=request('department_id');
+
         $search = request("search");
-        $students = Student::query()->when($search,function($query) use ($search){
+
+        $students = Student::query()
+        ->when($search,function($query) use ($search){
             $query->where("name","like","%".$search."%");
-        })->get();
+        })
+
+        ->when($department,function($query) use ($department){
+            $query->where('department_id',$department);
+        })
+        ->get();
 
         return view('students.index',[
-            'students' => $students 
+            'students' => $students,
+            'departments'=>$departments 
      ]);
     }
 

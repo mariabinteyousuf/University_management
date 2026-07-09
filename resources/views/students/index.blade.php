@@ -3,6 +3,7 @@
 @section('content')
     <div class="page-header">
         <div>
+{{-- Title --}}
             <h1 class="page-title">Students</h1>
             <p class="page-subtitle">Student profiles and contact records.</p>
         </div>
@@ -11,9 +12,14 @@
             <a href="/students/create" class="btn btn-primary">Add Student</a>
         </div>
     </div>
-
+{{-- Student Search Bar  --}}
     <form action="/students" method="GET" class="mb-6 flex items-center gap-3">
 
+        <input
+        type="hidden"
+        name="department_id"
+        value="{{ request('department_id') }}">
+        
        <input
         type="text"
         name="search"
@@ -35,12 +41,39 @@
 
     </form>
 
+{{-- Alert message --}}
     @if(session('success'))
     <div class="mb-4 rounded-lg bg-green-100 border border-green-400 text-green-700 px-4 py-3">
         {{ session('success') }}
     </div>
 @endif
 
+{{-- Select Department --}}
+<div class="flex flex-wrap gap-3 mb-6">
+
+    <a href="/students?search={{ request('search') }}"
+       class="px-5 py-2 rounded-lg border font-medium
+       {{ request('department_id') ? 'bg-white text-gray-700' : 'bg-blue-600 text-white' }}">
+        All
+    </a>
+
+    @foreach($departments as $department)
+
+        <a href="/students?department_id={{ $department->id }}&search={{ request('search') }}"
+           class="px-5 py-2 rounded-lg border font-medium
+           {{ request('department_id') == $department->id
+               ? 'bg-blue-600 text-white'
+               : 'bg-white text-gray-700 hover:bg-gray-100' }}">
+
+            {{ $department->name }}
+
+        </a>
+
+    @endforeach
+
+</div>
+
+{{-- Student Table --}}
     <div class="table-shell">
         <div class="table-wrap">
             <table class="record-table">

@@ -19,7 +19,7 @@
         type="hidden"
         name="department_id"
         value="{{ request('department_id') }}">
-        
+
        <input
         type="text"
         name="search"
@@ -87,6 +87,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if($students->count())
                     @foreach($students as $student)
                         <tr>
                             <td>{{ $student->id }}</td>
@@ -124,6 +125,15 @@
                             </td>
                         </tr>
                     @endforeach
+                    @else
+                    <tr>
+                        <td colspan="5" class="text-center py-6 font-semibold text-gray-500">
+
+                             No students found.
+
+                        </td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
         </div>

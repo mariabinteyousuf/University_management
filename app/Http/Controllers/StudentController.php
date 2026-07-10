@@ -67,6 +67,7 @@ class StudentController extends Controller
              'department_id'=>request('department_id'),
              'photo' => $photo
         ]);
+        
 
          return redirect('/students')->with('success','Student Created Successfully!');
 
@@ -75,6 +76,7 @@ class StudentController extends Controller
 
     public function show(Student $student)
     {
+        $student->load('department');
         return view('students.show',[
             'student'=> $student
         ]);

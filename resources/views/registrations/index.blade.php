@@ -18,8 +18,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Student ID</th>
-                        <th>Course ID</th>
+                        <th>Student Name</th>
+                        <th>Course Name</th>
                         <th>Semester</th>
                         <th>Actions</th>
                     </tr>
@@ -28,8 +28,8 @@
                     @foreach($registrations as $registration)
                         <tr>
                             <td>{{ $registration->id }}</td>
-                            <td>{{ $registration->student_id }}</td>
-                            <td>{{ $registration->course_id }}</td>
+                            <td>{{ $registration->student?->name??"Unassigned" }}</td>
+                            <td>{{ $registration->course?->course_name??"Unassigned" }}</td>
                             <td>{{ $registration->semester }}</td>
                             <td>
                                 <div class="action-row">

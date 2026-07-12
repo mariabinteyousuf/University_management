@@ -138,6 +138,7 @@
                 </tbody>
             </table>
         </div>
+        {{-- Pagination --}}
             <div class="mt-6">
                {{ $students->onEachSide(2)->links() }}
             </div>

@@ -21,11 +21,11 @@
                 </div>
                 <div class="detail-item">
                     <div class="detail-label">Student ID</div>
-                    <div class="detail-value">{{ $registration->student_id }}</div>
+                    <div class="detail-value">{{ $registration->student->name }}</div>
                 </div>
                 <div class="detail-item">
                     <div class="detail-label">Course ID</div>
-                    <div class="detail-value">{{ $registration->course_id }}</div>
+                    <div class="detail-value">{{ $registration->course->course_name }}</div>
                 </div>
                 <div class="detail-item">
                     <div class="detail-label">Semester</div>

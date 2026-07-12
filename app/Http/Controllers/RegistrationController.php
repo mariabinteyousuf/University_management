@@ -11,7 +11,7 @@ class RegistrationController extends Controller
 {
     public function index()
     {
-        $registrations =Registration::all();
+        $registrations = Registration::with(['student', 'course'])->get();
 
         return view('registrations.index',[
             'registrations'=>$registrations
@@ -79,12 +79,12 @@ class RegistrationController extends Controller
             'course_id'=>request('course_id'),
             'semester'=>request('semester')
         ]);
-        return redirect('/registration');        
+        return redirect('/registrations');        
     }
 
     public function destroy(Registration $registration)
     {
         $registration->delete();
-        return redirect('/registration');
+        return redirect('/registrations');
     }
 }

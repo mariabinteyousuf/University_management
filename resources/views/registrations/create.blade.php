@@ -44,6 +44,16 @@
                         @error('course_id')
                             <p class="form-error">Please select a course.</p>
                         @enderror
+                        <div class="form-field">
+                            <label>Semester</label>
+                            <input 
+                            type="text"
+                            name="semester"
+                            placeholder="Semester">
+                             @error('semester')
+                            <p class="form-error">Please enter a semester.</p>
+                        @enderror
+                        </div>
                     </div>
                 </div>
 

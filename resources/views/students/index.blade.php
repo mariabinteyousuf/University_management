@@ -73,6 +73,7 @@
 
 </div>
 
+
 {{-- Student Table --}}
     <div class="table-shell">
         <div class="table-wrap">
@@ -137,5 +138,8 @@
                 </tbody>
             </table>
         </div>
+            <div class="mt-6">
+               {{ $students->onEachSide(2)->links() }}
+            </div>
     </div>
 @endsection

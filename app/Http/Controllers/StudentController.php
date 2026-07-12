@@ -25,7 +25,8 @@ class StudentController extends Controller
         ->when($department,function($query) use ($department){
             $query->where('department_id',$department);
         })
-        ->get();
+        ->paginate(10)
+        ->withQueryString();
 
         return view('students.index',[
             'students' => $students,
@@ -120,7 +121,8 @@ class StudentController extends Controller
             'department_id'=>request('department_id'),
             'photo' => $photo
         ]);
-        return redirect('/students')->with('success','Student Updated Successfully!');        
+        return redirect()->route('students.edit', $student)
+            ->with('success', 'Student Updated Successfully!');
     }
 
     public function destroy(Student $student)

@@ -62,6 +62,20 @@
                   </p>
                 </div>
 
+                <div>
+                    <p class="text-gray-500 text-sm">Registration Date</p>
+
+                     @if($student->registrations->count())
+                        <p class="text-lg font-semibold">
+                         {{ $student->registrations->first()->created_at->format('d M Y') }}
+                        </p>
+                      @else
+                        <p class="text-gray-400">
+                          Not Registered
+                        </p>
+                      @endif
+                </div>
+
             </div>
 
         </div>

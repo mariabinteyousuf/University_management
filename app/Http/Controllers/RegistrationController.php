@@ -33,17 +33,22 @@ class RegistrationController extends Controller
     {
       request()->validate([
          'student_id'=>['required'],
-         'course_id'=>['required'],
+         'course_ids' => ['required', 'array'],
+         'course_ids.*' => ['exists:courses,id'],
          'semester'=>['required']
         ]);
+
+        foreach (request('course_ids') as $courseId){
         Registration::create([
-             'student_id'=>request('student_id'),
-            'course_id'=>request('course_id'),
+            'student_id'=>request('student_id'),
+            'course_id' => $courseId,
             'semester'=>request('semester')
         ]);
 
-         return redirect('/registrations');
+        }
 
+         return redirect('/registrations')
+          ->with('success', 'Registration created successfully!');
     }
 
 

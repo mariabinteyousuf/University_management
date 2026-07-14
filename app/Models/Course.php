@@ -9,7 +9,7 @@ class Course extends Model
 {
     Use HasFactory;
 
-    protected $fillable = ['course_name','department_id','teacher_id'];
+    protected $fillable = ['course_name','department_id','teacher_id','day','start_time','end_time'];
 
     public function department()
     {

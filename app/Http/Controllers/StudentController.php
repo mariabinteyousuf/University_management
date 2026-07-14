@@ -77,7 +77,7 @@ class StudentController extends Controller
 
     public function show(Student $student)
     {
-        $student->load('department');
+        $student->load(['department','registrations']);
         return view('students.show',[
             'student'=> $student
         ]);

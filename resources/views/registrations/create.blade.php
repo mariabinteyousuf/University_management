@@ -32,29 +32,36 @@
                         @enderror
                     </div>
                     <div class="form-field">
-                        <label class="form-label">Course</label>
-                        <select name="course_id" class="form-select field-input">
-                            <option value="">Select Course</option>
-                            @foreach($courses as $item)
-                                <option value="{{ $item->id }}">
-                                    {{ $item->course_name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('course_id')
-                            <p class="form-error">Please select a course.</p>
-                        @enderror
+                        <label class="form-label">Courses</label>
+                          <div class="grid grid-cols-2 gap-3 border rounded-lg p-4">
+                              @foreach($courses as $course)
+                              <label class="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  name="course_ids[]"
+                                  value="{{ $course->id }}"
+                                  class="rounded text-blue-600">
+                                 <span>{{ $course->course_name }}</span> 
+                              </label>
+                              @endforeach
+                          </div>
+                            @error('course_ids')
+                              <p class="form-error">Please select a course.</p>
+                            @enderror
+                        </div>    
+                        
                         <div class="form-field">
-                            <label>Semester</label>
+                            <label class="form-label">Semester</label>
                             <input 
                             type="text"
                             name="semester"
+                            class="form-input field-input"
                             placeholder="Semester">
                              @error('semester')
-                            <p class="form-error">Please enter a semester.</p>
-                        @enderror
+                               <p class="form-error">Please enter a semester.</p>
+                             @enderror
                         </div>
-                    </div>
+                    
                 </div>
 
                 <div class="form-footer">

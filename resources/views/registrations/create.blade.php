@@ -31,6 +31,7 @@
                             <p class="form-error">Please select a student.</p>
                         @enderror
                     </div>
+                    
                     <div class="form-field">
                         <label class="form-label">Courses</label>
                           <div class="grid grid-cols-2 gap-3 border rounded-lg p-4">

@@ -24,6 +24,37 @@
                             <p class="form-error">Please enter a valid course name.</p>
                         @enderror
                     </div>
+
+                    <div class="form-field">
+                         <label class="form-label">Day</label>
+                         <select name="day" class="form-select field-input">
+                            <option value="">Select Day</option>
+                            <option>Sunday</option>
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+
+                         </select>
+                    </div>
+
+                    <div class="form-field">
+                       <label class="form-label">Start Time</label>
+
+                           <input
+                            type="time"
+                            name="start_time"
+                            class="form-input field-input">
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label">End Time</label>
+
+                            <input
+                             type="time"
+                             name="end_time"
+                             class="form-input field-input">
+                    </div>
                     <div class="form-field">
                         <label class="form-label">Department</label>
                         <select name="department_id" class="form-select field-input">

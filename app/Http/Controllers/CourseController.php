@@ -35,13 +35,21 @@ class CourseController extends Controller
         request()->validate([
             'course_name'=>['required'],
             'teacher_id'=>['required'],
-            'department_id'=>['required']
+            'department_id'=>['required'],
+            'day' => ['required'],
+            'start_time' => ['required'],
+             'end_time' => ['required'],
         ]);
 
         Course::create([
              'course_name'=> request('course_name'),
              'teacher_id'=> request('teacher_id'),
-             'department_id'=>request('department_id')
+             'department_id'=>request('department_id'),
+
+             'day' => request('day'),
+             'start_time' => request('start_time'),
+             'end_time' => request('end_time'),
+    
         ]);
 
          return redirect('/courses');
@@ -74,13 +82,19 @@ class CourseController extends Controller
         request()->validate([
          'course_name'=>['required'],
          'teacher_id'=>['required'],
-         'department_id'=>['required']
+         'department_id'=>['required'],
+         'day' => ['required'],
+         'start_time' => ['required'],
+         'end_time' => ['required']
         ]);
         
         $course->update([
             'course_name'=>request('course_name'),
             'teacher_id'=>request('teacher_id'),
-            'department_id'=>request('department_id')
+            'department_id'=>request('department_id'),
+            'day' => request('day'),
+            'start_time' => request('start_time'),
+            'end_time' => request('end_time')
         ]);
         return redirect('/courses');        
     }

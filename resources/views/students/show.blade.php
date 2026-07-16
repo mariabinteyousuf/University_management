@@ -77,7 +77,73 @@
                 </div>
 
             </div>
+<div class="mt-10 bg-white rounded-2xl shadow-lg p-6">
 
+    <h2 class="text-2xl font-bold mb-6">
+        Class Routine
+    </h2>
+
+    <table class="min-w-full border">
+
+        <thead class="bg-gray-100">
+
+            <tr>
+
+                <th class="p-3 border">Course</th>
+                <th class="p-3 border">Day</th>
+                <th class="p-3 border">Time</th>
+               
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        @forelse($student->registrations as $registration)
+
+            <tr>
+
+                <td class="border p-3">
+                    {{ $registration->course->course_name }}
+                </td>
+
+                <td class="border p-3">
+                    {{ $registration->course->day }}
+                </td>
+
+                <td class="border p-3">
+
+                    {{ date('h:i A',strtotime($registration->course->start_time)) }}
+
+                    -
+
+                    {{ date('h:i A',strtotime($registration->course->end_time)) }}
+
+                </td>
+
+            
+            </tr>
+
+        @empty
+
+            <tr>
+
+                <td colspan="4" class="text-center p-5">
+
+                    No registered courses.
+
+                </td>
+
+            </tr>
+
+        @endforelse
+
+        </tbody>
+
+    </table>
+
+</div>
             
 
         </div>
